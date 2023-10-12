@@ -1,20 +1,12 @@
 import React from 'react';
 import styles from './Search.module.scss';
-import BookService from '../../API/BookService.js';
-import { useFetching } from '../../hooks/useFetching.js';
 
-function Search({ setBooks }) {
-  const [search, setSearch] = React.useState('');
+function Search({ search, setSearch, fetchBooks }) {
   const searchButtonRef = React.useRef();
-
-  const [fetchBook, isBooksLoading, bookError] = useFetching(async () => {
-    const booksData = await BookService.getAll(search);
-    setBooks(booksData);
-  });
 
   const searchBook = (event) => {
     if (event.key === 'Enter' || searchButtonRef.current === event.target) {
-      fetchBook();
+      fetchBooks();
     }
   };
 

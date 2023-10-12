@@ -101,7 +101,6 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 70px;
 }
 
 .content__bottom {
@@ -110,5 +109,11 @@ textarea {
   grid-auto-columns: 1fr;
   column-gap: 30px;
   row-gap: 50px;
+  margin-top: 70px;
+}
 
+.loader-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
 }
