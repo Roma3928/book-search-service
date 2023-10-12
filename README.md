@@ -1,6 +1,6 @@
 # Сервис по поиску книг
 
-АПИ: https://api.nasa.gov Asteroids - NeoWs
+АПИ: https://developers.google.com/books/docs/v1/using?hl=ru - Google Books APIs
 
 ## Доступные команды
 
