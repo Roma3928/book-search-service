@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Header from './components/Header/Header';
 import Search from './components/Search/Search';
 import Sort from './components/Sort/Sort';
@@ -8,6 +8,7 @@ import BookСard from './components/BookСard/BookСard';
 import BookService from './API/BookService.js';
 import { useFetching } from './hooks/useFetching.js';
 import PaginationButton from './components/PaginationButton/PaginationButton';
+import { useSelector } from 'react-redux';
 
 import noPhoto from './assets/img/no-photo.svg';
 
@@ -15,13 +16,14 @@ function App() {
   const [books, setBooks] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState('');
   const [booksTotalItems, setBooksTotalItems] = React.useState(0);
+  const filters = useSelector((state) => state.filters);
 
   const [startIndex, setStartIndex] = React.useState(30);
-  const [limit, setLimit] = React.useState(10);
+  const [limit, setLimit] = React.useState(24);
 
   const [fetchBooksToSearch, isBooksLoadingForSearch, booksErrorForSearch] = useFetching(
     async () => {
-      const booksData = await BookService.getAll(searchValue);
+      const booksData = await BookService.getAll(searchValue, filters);
       setBooks(booksData.items);
       setBooksTotalItems(booksData.totalItems);
     },
@@ -29,7 +31,7 @@ function App() {
 
   const [fetchBooksForPagination, isBooksLoadingForPagination, booksErrorForPagination] =
     useFetching(async () => {
-      const booksData = await BookService.getAll(searchValue, startIndex, limit);
+      const booksData = await BookService.getAll(searchValue, filters, startIndex, limit);
       setBooks((oldBooks) => [...oldBooks, ...booksData.items]);
     });
 
@@ -37,6 +39,10 @@ function App() {
     setStartIndex(startIndex + 30);
     fetchBooksForPagination();
   };
+
+  React.useEffect(() => {
+    booksTotalItems > 0 && fetchBooksToSearch();
+  }, [filters]);
 
   return (
     <div className="wrapper">

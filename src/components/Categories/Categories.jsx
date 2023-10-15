@@ -1,19 +1,30 @@
 import React from 'react';
 import styles from './Categories.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategory } from '../../store/slices/filterSlice.js';
 
 function Categories() {
+  const category = useSelector((state) => state.filters.category);
+  const dispatch = useDispatch();
+
   const [isVisible, setIsVisible] = React.useState(false);
-  const [selected, setselected] = React.useState(0);
   const categoriesRef = React.useRef();
-  const categoriesList = ['Все', 'убыванию даты'];
-  const categoryName = categoriesList[selected];
+  const categoriesList = [
+    { name: 'все', categoryProperty: 'all' },
+    { name: 'искусство', categoryProperty: 'art' },
+    { name: 'биография', categoryProperty: 'biography' },
+    { name: 'информатика', categoryProperty: 'computers' },
+    { name: 'история', categoryProperty: 'history' },
+    { name: 'медицина', categoryProperty: 'medical' },
+    { name: 'поэзия', categoryProperty: 'poetry' },
+  ];
 
   const showPopup = () => {
     setIsVisible(!isVisible);
   };
 
-  const onSelectElement = (i) => {
-    setselected(i);
+  const onSelectElement = (obj) => {
+    dispatch(setCategory(obj));
     setIsVisible(false);
   };
 
@@ -50,18 +61,18 @@ function Categories() {
           />
         </svg>
         <b>Фильтрация:</b>
-        <span onClick={showPopup}>{categoryName}</span>
+        <span onClick={showPopup}>{category.name}</span>
       </div>
 
       {isVisible && (
         <div className={styles.popup}>
           <ul>
-            {categoriesList.map((name, index) => (
+            {categoriesList.map((obj, index) => (
               <li
                 key={index}
-                onClick={() => onSelectElement(index)}
-                className={selected === index ? styles.active : ''}>
-                {name}
+                onClick={() => onSelectElement(obj)}
+                className={category.categoryProperty === obj.categoryProperty ? styles.active : ''}>
+                {obj.name}
               </li>
             ))}
           </ul>
