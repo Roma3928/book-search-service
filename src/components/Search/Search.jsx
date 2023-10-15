@@ -1,12 +1,17 @@
 import React from 'react';
 import styles from './Search.module.scss';
 
-function Search({ search, setSearch, fetchBooks }) {
+function Search({ searchValue, setSearchValue, fetchBooksToSearch, setBooks, setBooksTotalItems }) {
   const searchButtonRef = React.useRef();
 
-  const searchBook = (event) => {
+  const searchBooks = (event) => {
     if (event.key === 'Enter' || searchButtonRef.current === event.target) {
-      fetchBooks();
+      if (searchValue !== '') {
+        fetchBooksToSearch();
+      } else {
+        setBooks([]);
+        setBooksTotalItems(0);
+      }
     }
   };
 
@@ -14,7 +19,7 @@ function Search({ search, setSearch, fetchBooks }) {
     <div className={styles.search}>
       <svg
         ref={searchButtonRef}
-        onClick={searchBook}
+        onClick={searchBooks}
         className={styles.search__icon}
         width="800px"
         height="800px"
@@ -33,9 +38,9 @@ function Search({ search, setSearch, fetchBooks }) {
       <input
         className={styles.search__input}
         placeholder="Поиск книги..."
-        values={search}
-        onChange={(e) => setSearch(e.target.value)}
-        onKeyUp={searchBook}
+        values={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        onKeyUp={searchBooks}
       />
     </div>
   );
