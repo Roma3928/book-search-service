@@ -5,43 +5,26 @@ import Sort from './components/Sort/Sort';
 import Categories from './components/Categories/Categories';
 import Loader from './components/UI/Loader/Loader';
 import BookСard from './components/BookСard/BookСard';
-import BookService from './API/BookService.js';
-import { useFetching } from './hooks/useFetching.js';
 import PaginationButton from './components/PaginationButton/PaginationButton';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { fetchBooks, fetchShowMoreBooks, setStartIndex } from './store/slices/booksSlice.js';
 
 import noPhoto from './assets/img/no-photo.svg';
 
 function App() {
-  const [books, setBooks] = React.useState([]);
-  const [searchValue, setSearchValue] = React.useState('');
-  const [booksTotalItems, setBooksTotalItems] = React.useState(0);
+  const searchValue = useSelector((state) => state.search.searchValue);
   const filters = useSelector((state) => state.filters);
-
-  const [startIndex, setStartIndex] = React.useState(30);
-  const [limit, setLimit] = React.useState(24);
-
-  const [fetchBooksToSearch, isBooksLoadingForSearch, booksErrorForSearch] = useFetching(
-    async () => {
-      const booksData = await BookService.getAll(searchValue, filters);
-      setBooks(booksData.items);
-      setBooksTotalItems(booksData.totalItems);
-    },
-  );
-
-  const [fetchBooksForPagination, isBooksLoadingForPagination, booksErrorForPagination] =
-    useFetching(async () => {
-      const booksData = await BookService.getAll(searchValue, filters, startIndex, limit);
-      setBooks((oldBooks) => [...oldBooks, ...booksData.items]);
-    });
+  const { books, startIndex, totalItems, isLoading, error } = useSelector((state) => state.books);
+  const dispatch = useDispatch();
 
   const showMore = () => {
-    setStartIndex(startIndex + 30);
-    fetchBooksForPagination();
+    dispatch(setStartIndex(startIndex + 30));
+    dispatch(fetchShowMoreBooks({ searchValue, filters, startIndex }));
   };
 
   React.useEffect(() => {
-    booksTotalItems > 0 && fetchBooksToSearch();
+    totalItems > 0 && dispatch(fetchBooks({ searchValue, filters }));
   }, [filters]);
 
   return (
@@ -51,29 +34,18 @@ function App() {
         <div className="container">
           <div className="content__top">
             <Categories />
-            <Search
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-              fetchBooksToSearch={fetchBooksToSearch}
-              setBooks={setBooks}
-              setBooksTotalItems={setBooksTotalItems}
-            />
+            <Search />
             <Sort />
           </div>
-          {isBooksLoadingForSearch && (
-            <div className="loader-box">
-              <Loader />
-            </div>
-          )}
-          {booksErrorForSearch ? (
+          {error ? (
             <p className="error-box">Произошла ошибка!</p>
           ) : (
             <p className="counter-box">
-              Количество найденных книг: <span>{booksTotalItems}</span>
+              Количество найденных книг: <span>{totalItems}</span>
             </p>
           )}
           <div className="content__bottom">
-            {booksTotalItems > 0 &&
+            {totalItems > 0 &&
               books.map((book) => (
                 <BookСard
                   key={book.id}
@@ -88,13 +60,13 @@ function App() {
                 />
               ))}
           </div>
-          {isBooksLoadingForPagination && (
+          {isLoading && (
             <div className="loader-box">
               <Loader />
             </div>
           )}
-          {booksErrorForPagination && <p className="error-box">Произошла ошибка!</p>}
-          {startIndex < booksTotalItems && (
+          {error && <p className="error-box">Произошла ошибка!</p>}
+          {startIndex < totalItems && (
             <div className="pagination-box">
               <PaginationButton showMore={showMore} />
             </div>

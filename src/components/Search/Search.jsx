@@ -1,16 +1,22 @@
 import React from 'react';
 import styles from './Search.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSearchValue } from '../../store/slices/searchSlice.js';
+import { fetchBooks, setBooks, setTotalItems } from '../../store/slices/booksSlice.js';
 
-function Search({ searchValue, setSearchValue, fetchBooksToSearch, setBooks, setBooksTotalItems }) {
+function Search({}) {
   const searchButtonRef = React.useRef();
+  const searchValue = useSelector((state) => state.search.searchValue);
+  const filters = useSelector((state) => state.filters);
+  const dispatch = useDispatch();
 
   const searchBooks = (event) => {
     if (event.key === 'Enter' || searchButtonRef.current === event.target) {
       if (searchValue !== '') {
-        fetchBooksToSearch();
+        dispatch(fetchBooks({ searchValue, filters }));
       } else {
-        setBooks([]);
-        setBooksTotalItems(0);
+        dispatch(setBooks([]));
+        dispatch(setTotalItems(0));
       }
     }
   };
@@ -39,7 +45,7 @@ function Search({ searchValue, setSearchValue, fetchBooksToSearch, setBooks, set
         className={styles.search__input}
         placeholder="Поиск книги..."
         values={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e) => dispatch(setSearchValue(e.target.value))}
         onKeyUp={searchBooks}
       />
     </div>
