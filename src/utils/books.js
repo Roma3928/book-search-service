@@ -1,13 +1,17 @@
 export const getUniqueList = (array) => {
-  const uniqueItems = {};
-  const result = [];
+  if (array && array.length > 0) {
+    const uniqueItems = {};
+    const result = [];
 
-  for (const item of array) {
-    if (!uniqueItems[item.id]) {
-      uniqueItems[item.id] = true;
-      result.push(item);
+    for (const item of array) {
+      if (!uniqueItems[item.id]) {
+        uniqueItems[item.id] = true;
+        result.push(item);
+      }
     }
-  }
 
-  return result;
+    return result;
+  } else {
+    return [];
+  }
 };

@@ -52,17 +52,18 @@ const booksSlice = createSlice({
         state.books = getUniqueList(action.payload.items);
       })
       .addCase(fetchBooks.rejected, (state) => {
-        state.loadingStatus = false;
+        state.isLoading = false;
         state.error = true;
         state.books = [];
-        state.totalItems = 0;
       })
       .addCase(fetchShowMoreBooks.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(fetchShowMoreBooks.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.books = getUniqueList([...state.books, ...action.payload.items]);
+        if (action.payload && action.payload.items) {
+          state.books = getUniqueList([...state.books, ...action.payload.items]);
+        }
       })
       .addCase(fetchShowMoreBooks.rejected, (state) => {
         state.loadingStatus = false;
