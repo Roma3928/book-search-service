@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSearchValue } from '../../store/slices/searchSlice.js';
 import { fetchBooks, setBooks, setTotalItems } from '../../store/slices/booksSlice.js';
 
-function Search({}) {
+function Search() {
   const searchButtonRef = React.useRef();
   const searchValue = useSelector((state) => state.search.searchValue);
   const filters = useSelector((state) => state.filters);
