@@ -2,30 +2,30 @@
 
 АПИ: https://developers.google.com/books/docs/v1/using?hl=ru - Google Books APIs
 
-## Доступные команды
+## Установка через Docker
 
-1. Установка зависимостей
-
-```bash
-npm i
-```
-
-2. Запуск проекта
+1. Установка
 
 ```bash
-npm start
+docker-compose build
 ```
 
-3. Билдинг готового проекта
+2. Запуск
 
 ```bash
-npm run build
+docker-compose up
 ```
 
-4. Команда копирует все конфиги и транзитивные зависимости (Webpack, Babel, ESLint и т. д.) в ваш проект, чтобы вы могли их контролировать.
+## Ссылка
 
-```bash
-npm run eject
-```
+[GitHub Pages](https://roma3928.github.io/book-search-service/)
 
-**Примечание: это односторонняя операция!**
+## Стек
+
+- React
+- JavaScript
+- Redux-Toolkit
+- React Router
+- Axios
+- Scss
+- Docker
