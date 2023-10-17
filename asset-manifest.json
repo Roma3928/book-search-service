@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/future-test-project/static/css/main.cd5e408c.css",
-    "main.js": "/future-test-project/static/js/main.484c92d6.js",
-    "static/media/no-photo.svg": "/future-test-project/static/media/no-photo.7be8000de0651f1711aaa1b48cf96ea5.svg",
-    "index.html": "/future-test-project/index.html",
-    "static/media/book-icon.svg": "/future-test-project/static/media/book-icon.2d3812f9bfb07ee21de9.svg",
-    "main.cd5e408c.css.map": "/future-test-project/static/css/main.cd5e408c.css.map",
-    "main.484c92d6.js.map": "/future-test-project/static/js/main.484c92d6.js.map"
+    "main.css": "/book-search-service/static/css/main.9f1db40d.css",
+    "main.js": "/book-search-service/static/js/main.a3c8fa93.js",
+    "static/media/no-photo.svg": "/book-search-service/static/media/no-photo.7be8000de0651f1711aaa1b48cf96ea5.svg",
+    "index.html": "/book-search-service/index.html",
+    "static/media/book-icon.svg": "/book-search-service/static/media/book-icon.2d3812f9bfb07ee21de9.svg",
+    "main.9f1db40d.css.map": "/book-search-service/static/css/main.9f1db40d.css.map",
+    "main.a3c8fa93.js.map": "/book-search-service/static/js/main.a3c8fa93.js.map"
   },
   "entrypoints": [
-    "static/css/main.cd5e408c.css",
-    "static/js/main.484c92d6.js"
+    "static/css/main.9f1db40d.css",
+    "static/js/main.a3c8fa93.js"
   ]
 }
