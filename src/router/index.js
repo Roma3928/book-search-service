@@ -1,6 +1,6 @@
 import Main from '../pages/Main';
 import Erorr from '../pages/Error';
-import BookFull from '../pages/BookFull';
+import BookPage from '../pages/BookPage/BookPage';
 import MainLayout from '../layouts/MainLayout';
 
 export const routes = [
@@ -14,7 +14,7 @@ export const routes = [
       },
       {
         path: '/book/:id',
-        element: <BookFull />,
+        element: <BookPage />,
       },
       {
         path: '*',

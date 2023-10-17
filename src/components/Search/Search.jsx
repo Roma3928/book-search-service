@@ -26,7 +26,7 @@ function Search() {
       <svg
         ref={searchButtonRef}
         onClick={searchBooks}
-        className={styles.search__icon}
+        className={styles.icon}
         width="22px"
         height="22px"
         viewBox="0 0 24 24"
@@ -42,7 +42,6 @@ function Search() {
       </svg>
 
       <input
-        className={styles.search__input}
         placeholder="Поиск книги..."
         values={searchValue}
         onChange={(e) => dispatch(setSearchValue(e.target.value))}
