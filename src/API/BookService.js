@@ -15,4 +15,9 @@ export default class BookService {
 
     return response.data;
   }
+
+  static async getById(id) {
+    const response = await axios.get(`${API_URL}/${id}/?&key=${API_KEY}`);
+    return response.data;
+  }
 }

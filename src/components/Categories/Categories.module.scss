@@ -1,6 +1,8 @@
 .filter {
     position: relative;
     font-size: 14px;
+    grid-row: 2/3;
+
 
     .label {
 
@@ -34,7 +36,7 @@
         background-color: #fff;
         box-shadow: 0 0 0 1px #d8d8d8;
         border-radius: 8px;
-
+        z-index: 10;
 
         li {
             padding: 8px 14px;
@@ -58,5 +60,14 @@
             background-color: #bdd1ff;
             color: #164ccb;
         }
+
+    }
+
+    @media (max-width: 720px) {
+        order: 1;
+    }
+
+    @media (max-width: 576px) {
+        font-size: 12px;
     }
 }

@@ -25,7 +25,7 @@ body {
   font-weight: 400;
   line-height: 24px;
   font-family: 'Montserrat Alternates', sans-serif;
-  padding: 50px;
+  padding: 50px 0;
 }
 
 h1,
@@ -69,7 +69,7 @@ textarea {
   resize: vertical;
 }
 
-.wrapper {
+.content {
   position: relative;
   min-height: 100%;
   display: flex;
@@ -77,31 +77,62 @@ textarea {
   background-color: #fff;
   min-height: 90vh;
   border-radius: 10px;
-  padding: 30px 10px;
+  padding: 30px 25px;
+
+  @media (max-width: 768px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 .container {
-  max-width: 1170px;
+  max-width: 1320px;
   padding: 0 15px;
   margin: 0 auto;
 
+  @media (max-width: 1400px) {
+    max-width: 1170px;
+  }
+
+  @media (max-width: 1200px) {
+    max-width: 990px
+  }
+
   @media (max-width: 992px) {
-    max-width: 720px;
+    max-width: 800px
   }
 
   @media (max-width: 768px) {
-    max-width: 540px;
+    max-width: none;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
-  @media (max-width: 576px) {
-    max-width: none;
-  }
 }
 
 .content__top {
   display: flex;
   align-items: center;
   justify-content: space-around;
+
+  @media (max-width: 992px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 30px;
+    column-gap: 10px;
+    justify-items: center;
+  }
+
+  @media (max-width: 720px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  @media (max-width: 576px) {
+    row-gap: 20px;
+  }
 }
 
 .loader-box {
@@ -122,6 +153,11 @@ textarea {
   span {
     margin-left: 5px;
     font-weight: 700;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 14px;
+    margin-top: 35px;
   }
 }
 

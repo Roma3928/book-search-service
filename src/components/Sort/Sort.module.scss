@@ -1,9 +1,9 @@
 .sort {
     position: relative;
     font-size: 14px;
+    grid-row: 2/3;
 
-    &__label {
-
+    .label {
         display: flex;
     }
 
@@ -27,13 +27,14 @@
         cursor: pointer;
     }
 
-    &__popup {
+    .popup {
         position: absolute;
         right: 0;
         top: 35px;
         background-color: #fff;
         box-shadow: 0 0 0 1px #d8d8d8;
         border-radius: 8px;
+        z-index: 10;
 
 
         li {
@@ -58,5 +59,9 @@
             background-color: #bdd1ff;
             color: #164ccb;
         }
+    }
+
+    @media (max-width: 576px) {
+        font-size: 12px;
     }
 }

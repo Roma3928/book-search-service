@@ -33,13 +33,14 @@ function Main() {
         <Search />
         <Sort />
       </div>
-      {error ? (
-        <p className="error-box">Произошла ошибка!</p>
-      ) : (
+      {error && <p className="error-box">Произошла ошибка!</p>}
+
+      {totalItems >= 0 && (
         <p className="counter-box">
           Количество найденных книг: <span>{totalItems}</span>
         </p>
       )}
+
       <BooksList />
       {isLoading && (
         <div className="loader-box">

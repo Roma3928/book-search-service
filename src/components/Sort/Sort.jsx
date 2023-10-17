@@ -39,7 +39,7 @@ function Sort() {
 
   return (
     <div ref={sortRef} className={styles.sort}>
-      <div className={styles.sort__label}>
+      <div className={styles.label}>
         <svg
           className={isVisible ? styles.rotated : ''}
           width="20px"
@@ -60,7 +60,7 @@ function Sort() {
       </div>
 
       {isVisible && (
-        <div className={styles.sort__popup}>
+        <div className={styles.popup}>
           <ul>
             {sortList.map((obj, index) => (
               <li

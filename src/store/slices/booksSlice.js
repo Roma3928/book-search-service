@@ -6,9 +6,9 @@ const initialState = {
   isLoading: false,
   error: false,
   startIndex: 30,
-  totalItems: 0,
-  bookId: '',
+  totalItems: -1,
   books: [],
+  book: {},
 };
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async (params) => {
@@ -19,6 +19,10 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async (params) =>
 export const fetchShowMoreBooks = createAsyncThunk('books/fetchShowMoreBooks', async (params) => {
   const { searchValue, filters, startIndex } = params;
   return await BookService.getAll(searchValue, filters, startIndex);
+});
+
+export const fetchBookById = createAsyncThunk('books/fetchBookById', async (id) => {
+  return await BookService.getById(id);
 });
 
 const booksSlice = createSlice({
@@ -34,9 +38,6 @@ const booksSlice = createSlice({
     },
     setStartIndex(state, action) {
       state.startIndex = action.payload;
-    },
-    setBookId(state, action) {
-      state.bookId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -66,11 +67,22 @@ const booksSlice = createSlice({
         }
       })
       .addCase(fetchShowMoreBooks.rejected, (state) => {
-        state.loadingStatus = false;
+        state.isLoading = false;
+        state.error = true;
+      })
+      .addCase(fetchBookById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchBookById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.book = action.payload.volumeInfo;
+      })
+      .addCase(fetchBookById.rejected, (state) => {
+        state.isLoading = false;
         state.error = true;
       });
   },
 });
 
-export const { setBooks, setTotalItems, setStartIndex, setBookId } = booksSlice.actions;
+export const { setBooks, setTotalItems, setStartIndex } = booksSlice.actions;
 export default booksSlice.reducer;
